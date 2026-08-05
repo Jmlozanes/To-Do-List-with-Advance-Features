@@ -6,14 +6,24 @@ let tasks = [];
 
 
 const taskInput = document.getElementById("taskInput");
+
 const searchInput = document.getElementById("searchInput");
+
 const priority = document.getElementById("priority");
+
 const dueDate = document.getElementById("dueDate");
 
 const addTaskButton = document.getElementById("addTask");
+
 const taskList = document.getElementById("taskList");
 
 const themeToggle = document.getElementById("themeToggle");
+
+const allFilter = document.getElementById("allFilter");
+
+const activeFilter = document.getElementById("activeFilter");
+
+const completedFilter = document.getElementById("completedFilter");
 
 
 // =========================
@@ -178,6 +188,65 @@ function searchTasks(){
 
 
     });
+
+
+
+    displayTasks(filteredTasks);
+
+
+}
+
+// =========================
+// FILTER TASKS
+// =========================
+
+
+function filterTasks(type){
+
+
+    let filteredTasks;
+
+
+
+    if(type === "all"){
+
+
+        filteredTasks = tasks;
+
+
+    }
+
+
+
+    else if(type === "active"){
+
+
+        filteredTasks = tasks.filter(function(task){
+
+
+            return task.completed === false;
+
+
+        });
+
+
+    }
+
+
+
+    else if(type === "completed"){
+
+
+        filteredTasks = tasks.filter(function(task){
+
+
+            return task.completed === true;
+
+
+        });
+
+
+    }
 
 
 
@@ -420,6 +489,46 @@ themeToggle.addEventListener(
     "click",
 
     toggleTheme
+
+);
+
+allFilter.addEventListener(
+
+    "click",
+
+    function(){
+
+        filterTasks("all");
+
+    }
+
+);
+
+
+
+activeFilter.addEventListener(
+
+    "click",
+
+    function(){
+
+        filterTasks("active");
+
+    }
+
+);
+
+
+
+completedFilter.addEventListener(
+
+    "click",
+
+    function(){
+
+        filterTasks("completed");
+
+    }
 
 );
 
