@@ -1,0 +1,245 @@
+/* =========================
+   GLOBAL STYLE
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f9;
+    color: #333;
+
+    min-height: 100vh;
+
+}
+
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+
+.app-container {
+
+    width: 90%;
+    max-width: 900px;
+
+    margin: 40px auto;
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+
+}
+
+
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+
+    text-align: center;
+
+    margin-bottom: 30px;
+
+}
+
+
+header h1 {
+
+    font-size: 40px;
+
+    color: #2563eb;
+
+}
+
+
+header p {
+
+    margin-top: 10px;
+
+    color: #666;
+
+}
+
+
+
+/* =========================
+   DARK MODE BUTTON
+========================= */
+
+
+#themeToggle {
+
+    margin-top:20px;
+
+    padding:10px 20px;
+
+    border:none;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    background:#111827;
+
+    color:white;
+
+}
+
+
+
+/* =========================
+   TASK FORM
+========================= */
+
+
+.task-form {
+
+    display:flex;
+
+    gap:10px;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.task-form input,
+.task-form select {
+
+
+    padding:12px;
+
+    border-radius:8px;
+
+    border:1px solid #ddd;
+
+    font-size:15px;
+
+}
+
+
+
+#taskInput {
+
+    flex:1;
+
+}
+
+
+
+#addTask {
+
+
+    padding:12px 20px;
+
+    border:none;
+
+    background:#2563eb;
+
+    color:white;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+
+#addTask:hover {
+
+
+    background:#1d4ed8;
+
+}
+
+
+
+/* =========================
+   SEARCH
+========================= */
+
+
+.search-section {
+
+
+    margin-bottom:20px;
+
+
+}
+
+
+#searchInput {
+
+
+    width:100%;
+
+    padding:12px;
+
+    border-radius:8px;
+
+    border:1px solid #ddd;
+
+
+}
+
+
+
+/* =========================
+   TASK LIST
+========================= */
+
+
+#taskList {
+
+    list-style:none;
+
+}
+
+
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+
+
+@media(max-width:700px){
+
+
+    .task-form {
+
+        flex-direction:column;
+
+    }
+
+
+    .app-container {
+
+        width:95%;
+
+        padding:20px;
+
+    }
+
+
+    header h1 {
+
+        font-size:32px;
+
+    }
+
+
+}
