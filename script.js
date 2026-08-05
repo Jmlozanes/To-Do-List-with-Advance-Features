@@ -1,362 +1,416 @@
-/* =========================
-   GLOBAL STYLE
-========================= */
+// =========================
+// VARIABLES
+// =========================
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
+let tasks = [];
 
-body {
 
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f4f6f9;
-    color: #333;
-    min-height: 100vh;
-    transition: 0.3s;
+const taskInput = document.getElementById("taskInput");
 
-}
+const priority = document.getElementById("priority");
 
+const dueDate = document.getElementById("dueDate");
 
-/* =========================
-   MAIN CONTAINER
-========================= */
+const addTaskButton = document.getElementById("addTask");
 
-.app-container {
+const taskList = document.getElementById("taskList");
 
-    width: 90%;
-    max-width: 900px;
+const themeToggle = document.getElementById("themeToggle");
 
-    margin: 40px auto;
 
-    background: white;
 
-    padding: 30px;
+// =========================
+// ADD TASK
+// =========================
 
-    border-radius: 15px;
 
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+function addTask(){
 
-}
 
+    let taskText = taskInput.value.trim();
 
 
-/* =========================
-   HEADER
-========================= */
 
+    if(taskText === ""){
 
-header {
+        alert("Please enter a task");
 
-    text-align: center;
-    margin-bottom: 30px;
-
-}
-
-
-header h1 {
-
-    font-size: 40px;
-    color: #2563eb;
-
-}
-
-
-header p {
-
-    margin-top:10px;
-    color:#666;
-
-}
-
-
-
-/* =========================
-   BUTTONS
-========================= */
-
-
-button {
-
-    cursor:pointer;
-    border:none;
-    border-radius:8px;
-    padding:10px 15px;
-
-}
-
-
-
-/* DARK BUTTON */
-
-#themeToggle {
-
-    margin-top:20px;
-    background:#111827;
-    color:white;
-
-}
-
-
-
-/* ADD BUTTON */
-
-#addTask {
-
-    background:#2563eb;
-    color:white;
-
-}
-
-
-#addTask:hover {
-
-    background:#1d4ed8;
-
-}
-
-
-
-/* =========================
-   TASK FORM
-========================= */
-
-
-.task-form {
-
-    display:flex;
-    gap:10px;
-    margin-bottom:20px;
-
-}
-
-
-
-.task-form input,
-.task-form select,
-#searchInput {
-
-
-    padding:12px;
-
-    border-radius:8px;
-
-    border:1px solid #ddd;
-
-    font-size:15px;
-
-}
-
-
-
-#taskInput {
-
-    flex:1;
-
-}
-
-
-
-/* =========================
-   SEARCH
-========================= */
-
-
-.search-section {
-
-    margin-bottom:20px;
-
-}
-
-
-#searchInput {
-
-    width:100%;
-
-}
-
-
-
-/* =========================
-   TASK LIST
-========================= */
-
-
-#taskList {
-
-    list-style:none;
-
-}
-
-
-
-#taskList li {
-
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    background:#f8fafc;
-
-    padding:15px;
-
-    margin-bottom:10px;
-
-    border-radius:10px;
-
-}
-
-
-
-/* DELETE BUTTON */
-
-#taskList button:last-child {
-
-
-    background:#dc2626;
-
-    color:white;
-
-}
-
-
-
-/* EDIT BUTTON */
-
-#taskList button:first-child {
-
-
-    background:#16a34a;
-
-    color:white;
-
-    margin-right:5px;
-
-}
-
-
-
-/* COMPLETED TASK */
-
-.completed h3 {
-
-
-    text-decoration:line-through;
-
-    color:#9ca3af;
-
-}
-
-
-.completed {
-
-
-    opacity:0.7;
-
-}
-
-
-
-/* =========================
-   DARK MODE
-========================= */
-
-
-body.dark {
-
-
-    background:#111827;
-
-    color:white;
-
-}
-
-
-
-body.dark .app-container {
-
-
-    background:#1f2937;
-
-}
-
-
-
-body.dark header p {
-
-
-    color:#d1d5db;
-
-}
-
-
-
-body.dark input,
-body.dark select {
-
-
-    background:#374151;
-
-    color:white;
-
-    border:1px solid #4b5563;
-
-}
-
-
-
-body.dark #taskList li {
-
-
-    background:#374151;
-
-}
-
-
-
-body.dark #themeToggle {
-
-
-    background:#facc15;
-
-    color:black;
-
-}
-
-
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-
-@media(max-width:700px){
-
-
-    .task-form {
-
-
-        flex-direction:column;
+        return;
 
     }
 
 
 
-    #taskList li {
+    let task = {
 
 
-        flex-direction:column;
+        id: Date.now(),
 
-        gap:10px;
+        title: taskText,
 
-        align-items:flex-start;
+        priority: priority.value,
+
+        date: dueDate.value,
+
+        completed:false
+
+
+    };
+
+
+
+    tasks.push(task);
+
+
+    saveTasks();
+
+
+    displayTasks();
+
+
+
+    taskInput.value="";
+
+    dueDate.value="";
+
+
+}
+
+
+
+// =========================
+// DISPLAY TASKS
+// =========================
+
+
+function displayTasks(){
+
+
+    taskList.innerHTML="";
+
+
+
+    tasks.forEach(function(task){
+
+
+
+        let li = document.createElement("li");
+
+
+
+        if(task.completed){
+
+            li.classList.add("completed");
+
+        }
+
+
+
+        li.innerHTML = `
+
+
+        <div>
+
+
+            <h3 onclick="completeTask(${task.id})">
+
+            ${task.title}
+
+            </h3>
+
+
+            <p>
+            Priority: ${task.priority}
+            </p>
+
+
+            <p>
+            Due: ${task.date || "No Date"}
+            </p>
+
+
+        </div>
+
+
+
+        <div>
+
+
+            <button onclick="editTask(${task.id})">
+
+            Edit
+
+            </button>
+
+
+
+            <button onclick="deleteTask(${task.id})">
+
+            Delete
+
+            </button>
+
+
+        </div>
+
+
+        `;
+
+
+
+        taskList.appendChild(li);
+
+
+
+    });
+
+
+
+}
+
+
+
+// =========================
+// DELETE TASK
+// =========================
+
+
+function deleteTask(id){
+
+
+    tasks = tasks.filter(function(task){
+
+
+        return task.id !== id;
+
+
+    });
+
+
+
+    saveTasks();
+
+    displayTasks();
+
+
+}
+
+
+
+// =========================
+// EDIT TASK
+// =========================
+
+
+function editTask(id){
+
+
+    let task = tasks.find(function(task){
+
+
+        return task.id === id;
+
+
+    });
+
+
+
+    let newTitle = prompt(
+
+        "Edit task:",
+
+        task.title
+
+    );
+
+
+
+    if(newTitle){
+
+
+        task.title = newTitle;
+
+
+        saveTasks();
+
+        displayTasks();
+
 
     }
 
 
 }
+
+
+
+// =========================
+// COMPLETE TASK
+// =========================
+
+
+function completeTask(id){
+
+
+    tasks = tasks.map(function(task){
+
+
+        if(task.id === id){
+
+
+            task.completed = !task.completed;
+
+
+        }
+
+
+        return task;
+
+
+    });
+
+
+
+    saveTasks();
+
+    displayTasks();
+
+
+}
+
+
+
+// =========================
+// LOCAL STORAGE
+// =========================
+
+
+function saveTasks(){
+
+
+    localStorage.setItem(
+
+        "tasks",
+
+        JSON.stringify(tasks)
+
+    );
+
+
+}
+
+
+
+
+function loadTasks(){
+
+
+    let saved = localStorage.getItem("tasks");
+
+
+
+    if(saved){
+
+
+        tasks = JSON.parse(saved);
+
+
+    }
+
+
+
+    displayTasks();
+
+
+}
+
+
+
+// =========================
+// DARK MODE
+// =========================
+
+
+function toggleTheme(){
+
+
+    document.body.classList.toggle("dark");
+
+
+
+    let theme = document.body.classList.contains("dark")
+
+        ? "dark"
+
+        : "light";
+
+
+
+    localStorage.setItem(
+
+        "theme",
+
+        theme
+
+    );
+
+
+}
+
+
+
+
+function loadTheme(){
+
+
+    let theme = localStorage.getItem("theme");
+
+
+
+    if(theme === "dark"){
+
+
+        document.body.classList.add("dark");
+
+
+    }
+
+
+}
+
+
+
+// =========================
+// EVENTS
+// =========================
+
+
+addTaskButton.addEventListener(
+
+    "click",
+
+    addTask
+
+);
+
+
+
+themeToggle.addEventListener(
+
+    "click",
+
+    toggleTheme
+
+);
+
+
+
+
+// =========================
+// START APP
+// =========================
+
+
+loadTasks();
+
+loadTheme();
