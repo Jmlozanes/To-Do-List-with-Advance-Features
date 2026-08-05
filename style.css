@@ -14,8 +14,8 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     background: #f4f6f9;
     color: #333;
-
     min-height: 100vh;
+    transition: 0.3s;
 
 }
 
@@ -47,10 +47,10 @@ body {
    HEADER
 ========================= */
 
+
 header {
 
     text-align: center;
-
     margin-bottom: 30px;
 
 }
@@ -59,7 +59,6 @@ header {
 header h1 {
 
     font-size: 40px;
-
     color: #2563eb;
 
 }
@@ -67,34 +66,54 @@ header h1 {
 
 header p {
 
-    margin-top: 10px;
-
-    color: #666;
+    margin-top:10px;
+    color:#666;
 
 }
 
 
 
 /* =========================
-   DARK MODE BUTTON
+   BUTTONS
 ========================= */
 
+
+button {
+
+    cursor:pointer;
+    border:none;
+    border-radius:8px;
+    padding:10px 15px;
+
+}
+
+
+
+/* DARK BUTTON */
 
 #themeToggle {
 
     margin-top:20px;
-
-    padding:10px 20px;
-
-    border:none;
-
-    border-radius:8px;
-
-    cursor:pointer;
-
     background:#111827;
-
     color:white;
+
+}
+
+
+
+/* ADD BUTTON */
+
+#addTask {
+
+    background:#2563eb;
+    color:white;
+
+}
+
+
+#addTask:hover {
+
+    background:#1d4ed8;
 
 }
 
@@ -108,9 +127,7 @@ header p {
 .task-form {
 
     display:flex;
-
     gap:10px;
-
     margin-bottom:20px;
 
 }
@@ -118,7 +135,8 @@ header p {
 
 
 .task-form input,
-.task-form select {
+.task-form select,
+#searchInput {
 
 
     padding:12px;
@@ -141,33 +159,6 @@ header p {
 
 
 
-#addTask {
-
-
-    padding:12px 20px;
-
-    border:none;
-
-    background:#2563eb;
-
-    color:white;
-
-    border-radius:8px;
-
-    cursor:pointer;
-
-}
-
-
-#addTask:hover {
-
-
-    background:#1d4ed8;
-
-}
-
-
-
 /* =========================
    SEARCH
 ========================= */
@@ -175,24 +166,14 @@ header p {
 
 .search-section {
 
-
     margin-bottom:20px;
-
 
 }
 
 
 #searchInput {
 
-
     width:100%;
-
-    padding:12px;
-
-    border-radius:8px;
-
-    border:1px solid #ddd;
-
 
 }
 
@@ -211,78 +192,112 @@ header p {
 
 
 
-/* =========================
-   RESPONSIVE DESIGN
-========================= */
+#taskList li {
 
 
-@media(max-width:700px){
+    display:flex;
 
+    justify-content:space-between;
 
-    .task-form {
+    align-items:center;
 
-        flex-direction:column;
+    background:#f8fafc;
 
-    }
+    padding:15px;
 
+    margin-bottom:10px;
 
-    .app-container {
-
-        width:95%;
-
-        padding:20px;
-
-    }
-
-
-    header h1 {
-
-        font-size:32px;
-
-    }
-
+    border-radius:10px;
 
 }
+
+
+
+/* DELETE BUTTON */
+
+#taskList button:last-child {
+
+
+    background:#dc2626;
+
+    color:white;
+
+}
+
+
+
+/* EDIT BUTTON */
+
+#taskList button:first-child {
+
+
+    background:#16a34a;
+
+    color:white;
+
+    margin-right:5px;
+
+}
+
+
+
+/* COMPLETED TASK */
+
+.completed h3 {
+
+
+    text-decoration:line-through;
+
+    color:#9ca3af;
+
+}
+
+
+.completed {
+
+
+    opacity:0.7;
+
+}
+
+
 
 /* =========================
    DARK MODE
 ========================= */
 
 
-body.dark{
+body.dark {
 
 
     background:#111827;
 
     color:white;
 
-
 }
 
 
 
-body.dark .app-container{
+body.dark .app-container {
 
 
     background:#1f2937;
 
-
 }
 
 
 
-body.dark header p{
+body.dark header p {
 
 
     color:#d1d5db;
-
 
 }
 
 
 
 body.dark input,
-body.dark select{
+body.dark select {
 
 
     background:#374151;
@@ -291,27 +306,57 @@ body.dark select{
 
     border:1px solid #4b5563;
 
-
 }
 
 
 
-body.dark #taskList li{
+body.dark #taskList li {
 
 
     background:#374151;
 
-
 }
 
 
 
-body.dark #themeToggle{
+body.dark #themeToggle {
 
 
     background:#facc15;
 
     color:black;
+
+}
+
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+
+@media(max-width:700px){
+
+
+    .task-form {
+
+
+        flex-direction:column;
+
+    }
+
+
+
+    #taskList li {
+
+
+        flex-direction:column;
+
+        gap:10px;
+
+        align-items:flex-start;
+
+    }
 
 
 }
