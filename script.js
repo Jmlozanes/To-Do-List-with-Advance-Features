@@ -1,12 +1,10 @@
 // =========================
 // VARIABLES
 // =========================
-
+const themeToggle = document.getElementById("themeToggle");
 
 let tasks = [];
 
-
-// Get HTML elements
 
 const taskInput = document.getElementById("taskInput");
 
@@ -18,6 +16,7 @@ const addTaskButton = document.getElementById("addTask");
 
 const taskList = document.getElementById("taskList");
 
+const themeToggle = document.getElementById("themeToggle");
 
 
 // =========================
@@ -265,3 +264,28 @@ addTask
 // Load data when page opens
 
 loadTasks();
+
+
+// =========================
+// DARK MODE
+// =========================
+
+
+function toggleTheme(){
+
+
+    document.body.classList.toggle("dark");
+
+
+    let currentTheme = document.body.classList.contains("dark")
+        ? "dark"
+        : "light";
+
+
+    localStorage.setItem(
+        "theme",
+        currentTheme
+    );
+
+
+}
