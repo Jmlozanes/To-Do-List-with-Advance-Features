@@ -243,3 +243,75 @@ header p {
 
 
 }
+
+/* =========================
+   DARK MODE
+========================= */
+
+
+body.dark{
+
+
+    background:#111827;
+
+    color:white;
+
+
+}
+
+
+
+body.dark .app-container{
+
+
+    background:#1f2937;
+
+
+}
+
+
+
+body.dark header p{
+
+
+    color:#d1d5db;
+
+
+}
+
+
+
+body.dark input,
+body.dark select{
+
+
+    background:#374151;
+
+    color:white;
+
+    border:1px solid #4b5563;
+
+
+}
+
+
+
+body.dark #taskList li{
+
+
+    background:#374151;
+
+
+}
+
+
+
+body.dark #themeToggle{
+
+
+    background:#facc15;
+
+    color:black;
+
+
+}
