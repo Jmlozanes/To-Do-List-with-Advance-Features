@@ -120,8 +120,10 @@ function displayTasks(){
             </h3>
 
 
-            <p>
-            Priority: ${task.priority}
+            <p class="priority ${task.priority.toLowerCase()}">
+
+            ${task.priority}
+
             </p>
 
 
