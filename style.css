@@ -421,3 +421,38 @@ body.dark #themeToggle {
 
 
 }
+
+/* =========================
+   FILTER BUTTONS
+========================= */
+
+
+.filter-buttons{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.filter-buttons button{
+
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+
+
+.filter-buttons button:hover{
+
+
+    background:#1d4ed8;
+
+}
