@@ -360,3 +360,64 @@ body.dark #themeToggle {
 
 
 }
+
+/* =========================
+   PRIORITY COLORS
+========================= */
+
+
+.priority {
+
+    display:inline-block;
+
+    padding:5px 12px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+}
+
+
+
+/* HIGH */
+
+.priority.high {
+
+
+    background:#fee2e2;
+
+    color:#dc2626;
+
+
+}
+
+
+
+/* MEDIUM */
+
+.priority.medium {
+
+
+    background:#fef3c7;
+
+    color:#d97706;
+
+
+}
+
+
+
+/* LOW */
+
+.priority.low {
+
+
+    background:#dcfce7;
+
+    color:#16a34a;
+
+
+}
