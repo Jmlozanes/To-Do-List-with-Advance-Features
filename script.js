@@ -19,6 +19,12 @@ const taskList = document.getElementById("taskList");
 
 const themeToggle = document.getElementById("themeToggle");
 
+const totalTasks = document.getElementById("totalTasks");
+
+const completedTasks = document.getElementById("completedTasks");
+
+const pendingTasks = document.getElementById("pendingTasks");
+
 const allFilter = document.getElementById("allFilter");
 
 const activeFilter = document.getElementById("activeFilter");
@@ -75,6 +81,42 @@ function addTask() {
 
 }
 
+// =========================
+// UPDATE DASHBOARD
+// =========================
+
+
+function updateDashboard(){
+
+
+    let total = tasks.length;
+
+
+
+    let completed = tasks.filter(function(task){
+
+
+        return task.completed === true;
+
+
+    }).length;
+
+
+
+    let pending = total - completed;
+
+
+
+    totalTasks.innerHTML = total;
+
+
+    completedTasks.innerHTML = completed;
+
+
+    pendingTasks.innerHTML = pending;
+
+
+}
 
 
 // =========================
