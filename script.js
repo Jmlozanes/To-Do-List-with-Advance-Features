@@ -90,41 +90,66 @@ function displayTasks(){
     taskList.innerHTML="";
 
 
-
     tasks.forEach(function(task){
 
 
         let li = document.createElement("li");
 
 
+        if(task.completed){
+
+            li.classList.add("completed");
+
+        }
+
+
 
         li.innerHTML = `
 
 
-        <div>
+        <div class="task-info">
 
 
-        <h3>${task.title}</h3>
+            <h3 onclick="completeTask(${task.id})">
+
+                ${task.title}
+
+            </h3>
 
 
-        <p>
-        Priority: ${task.priority}
-        </p>
+            <p>
+            Priority: ${task.priority}
+            </p>
 
 
-        <p>
-        Due Date: ${task.date || "No Date"}
-        </p>
-
+            <p>
+            Due Date: ${task.date || "No Date"}
+            </p>
 
 
         </div>
 
 
 
-        <button onclick="deleteTask(${task.id})">
-        Delete
-        </button>
+        <div>
+
+
+            <button onclick="editTask(${task.id})">
+
+            Edit
+
+            </button>
+
+
+
+            <button onclick="deleteTask(${task.id})">
+
+            Delete
+
+            </button>
+
+
+        </div>
 
 
         `;
@@ -136,7 +161,6 @@ function displayTasks(){
 
 
     });
-
 
 
 }
