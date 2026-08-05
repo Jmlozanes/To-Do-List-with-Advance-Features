@@ -2,37 +2,31 @@
 // VARIABLES
 // =========================
 
-
 let tasks = [];
 
 
 const taskInput = document.getElementById("taskInput");
-
+const searchInput = document.getElementById("searchInput");
 const priority = document.getElementById("priority");
-
 const dueDate = document.getElementById("dueDate");
 
 const addTaskButton = document.getElementById("addTask");
-
 const taskList = document.getElementById("taskList");
 
 const themeToggle = document.getElementById("themeToggle");
-
 
 
 // =========================
 // ADD TASK
 // =========================
 
-
-function addTask(){
+function addTask() {
 
 
     let taskText = taskInput.value.trim();
 
 
-
-    if(taskText === ""){
+    if (taskText === "") {
 
         alert("Please enter a task");
 
@@ -41,9 +35,7 @@ function addTask(){
     }
 
 
-
     let task = {
-
 
         id: Date.now(),
 
@@ -53,11 +45,9 @@ function addTask(){
 
         date: dueDate.value,
 
-        completed:false
-
+        completed: false
 
     };
-
 
 
     tasks.push(task);
@@ -65,14 +55,12 @@ function addTask(){
 
     saveTasks();
 
-
     displayTasks();
 
 
+    taskInput.value = "";
 
-    taskInput.value="";
-
-    dueDate.value="";
+    dueDate.value = "";
 
 
 }
@@ -83,16 +71,14 @@ function addTask(){
 // DISPLAY TASKS
 // =========================
 
-
-function displayTasks(){
-
-
-    taskList.innerHTML="";
+function displayTasks(taskArray = tasks) {
 
 
+    taskList.innerHTML = "";
 
-    tasks.forEach(function(task){
 
+
+    taskArray.forEach(function(task) {
 
 
         let li = document.createElement("li");
@@ -115,20 +101,22 @@ function displayTasks(){
 
             <h3 onclick="completeTask(${task.id})">
 
-            ${task.title}
+                ${task.title}
 
             </h3>
 
 
             <p class="priority ${task.priority.toLowerCase()}">
 
-            ${task.priority}
+                ${task.priority}
 
             </p>
 
 
             <p>
-            Due: ${task.date || "No Date"}
+
+                Due: ${task.date || "No Date"}
+
             </p>
 
 
@@ -141,7 +129,7 @@ function displayTasks(){
 
             <button onclick="editTask(${task.id})">
 
-            Edit
+                Edit
 
             </button>
 
@@ -149,7 +137,7 @@ function displayTasks(){
 
             <button onclick="deleteTask(${task.id})">
 
-            Delete
+                Delete
 
             </button>
 
@@ -160,13 +148,40 @@ function displayTasks(){
         `;
 
 
-
         taskList.appendChild(li);
-
 
 
     });
 
+
+}
+
+
+
+// =========================
+// SEARCH TASK
+// =========================
+
+function searchTasks(){
+
+
+    let searchText = searchInput.value.toLowerCase();
+
+
+
+    let filteredTasks = tasks.filter(function(task){
+
+
+        return task.title
+        .toLowerCase()
+        .includes(searchText);
+
+
+    });
+
+
+
+    displayTasks(filteredTasks);
 
 
 }
@@ -176,7 +191,6 @@ function displayTasks(){
 // =========================
 // DELETE TASK
 // =========================
-
 
 function deleteTask(id){
 
@@ -204,7 +218,6 @@ function deleteTask(id){
 // EDIT TASK
 // =========================
 
-
 function editTask(id){
 
 
@@ -228,7 +241,7 @@ function editTask(id){
 
 
 
-    if(newTitle){
+    if(newTitle !== null && newTitle.trim() !== ""){
 
 
         task.title = newTitle;
@@ -249,7 +262,6 @@ function editTask(id){
 // =========================
 // COMPLETE TASK
 // =========================
-
 
 function completeTask(id){
 
@@ -286,7 +298,6 @@ function completeTask(id){
 // LOCAL STORAGE
 // =========================
 
-
 function saveTasks(){
 
 
@@ -303,18 +314,17 @@ function saveTasks(){
 
 
 
-
 function loadTasks(){
 
 
-    let saved = localStorage.getItem("tasks");
+    let savedTasks = localStorage.getItem("tasks");
 
 
 
-    if(saved){
+    if(savedTasks){
 
 
-        tasks = JSON.parse(saved);
+        tasks = JSON.parse(savedTasks);
 
 
     }
@@ -331,7 +341,6 @@ function loadTasks(){
 // =========================
 // DARK MODE
 // =========================
-
 
 function toggleTheme(){
 
@@ -361,15 +370,14 @@ function toggleTheme(){
 
 
 
-
 function loadTheme(){
 
 
-    let theme = localStorage.getItem("theme");
+    let savedTheme = localStorage.getItem("theme");
 
 
 
-    if(theme === "dark"){
+    if(savedTheme === "dark"){
 
 
         document.body.classList.add("dark");
@@ -397,6 +405,16 @@ addTaskButton.addEventListener(
 
 
 
+searchInput.addEventListener(
+
+    "input",
+
+    searchTasks
+
+);
+
+
+
 themeToggle.addEventListener(
 
     "click",
@@ -407,9 +425,8 @@ themeToggle.addEventListener(
 
 
 
-
 // =========================
-// START APP
+// START APPLICATION
 // =========================
 
 
