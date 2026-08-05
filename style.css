@@ -456,3 +456,106 @@ body.dark #themeToggle {
     background:#1d4ed8;
 
 }
+
+/* =========================
+   DASHBOARD
+========================= */
+
+
+.dashboard{
+
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:25px;
+
+    margin-bottom:25px;
+
+
+}
+
+
+
+.stat-card{
+
+
+    flex:1;
+
+    background:#f8fafc;
+
+    padding:20px;
+
+    border-radius:12px;
+
+    text-align:center;
+
+
+}
+
+
+
+.stat-card h3{
+
+
+    font-size:15px;
+
+    color:#666;
+
+
+}
+
+
+
+.stat-card p{
+
+
+    font-size:30px;
+
+    font-weight:bold;
+
+    margin-top:10px;
+
+
+}
+
+
+
+
+/* DARK MODE */
+
+
+body.dark .stat-card{
+
+
+    background:#374151;
+
+
+}
+
+
+
+body.dark .stat-card h3{
+
+
+    color:#d1d5db;
+
+
+}
+
+
+
+
+@media(max-width:700px){
+
+
+    .dashboard{
+
+
+        flex-direction:column;
+
+    }
+
+
+}
