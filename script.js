@@ -1,291 +1,362 @@
-// =========================
-// VARIABLES
-// =========================
-const themeToggle = document.getElementById("themeToggle");
+/* =========================
+   GLOBAL STYLE
+========================= */
 
-let tasks = [];
-
-
-const taskInput = document.getElementById("taskInput");
-
-const priority = document.getElementById("priority");
-
-const dueDate = document.getElementById("dueDate");
-
-const addTaskButton = document.getElementById("addTask");
-
-const taskList = document.getElementById("taskList");
-
-const themeToggle = document.getElementById("themeToggle");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 
-// =========================
-// ADD TASK FUNCTION
-// =========================
+body {
+
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f9;
+    color: #333;
+    min-height: 100vh;
+    transition: 0.3s;
+
+}
 
 
-function addTask(){
+/* =========================
+   MAIN CONTAINER
+========================= */
+
+.app-container {
+
+    width: 90%;
+    max-width: 900px;
+
+    margin: 40px auto;
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+
+}
 
 
-    let taskText = taskInput.value;
+
+/* =========================
+   HEADER
+========================= */
 
 
-    if(taskText === ""){
+header {
 
-        alert("Please enter a task");
+    text-align: center;
+    margin-bottom: 30px;
 
-        return;
+}
+
+
+header h1 {
+
+    font-size: 40px;
+    color: #2563eb;
+
+}
+
+
+header p {
+
+    margin-top:10px;
+    color:#666;
+
+}
+
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+
+button {
+
+    cursor:pointer;
+    border:none;
+    border-radius:8px;
+    padding:10px 15px;
+
+}
+
+
+
+/* DARK BUTTON */
+
+#themeToggle {
+
+    margin-top:20px;
+    background:#111827;
+    color:white;
+
+}
+
+
+
+/* ADD BUTTON */
+
+#addTask {
+
+    background:#2563eb;
+    color:white;
+
+}
+
+
+#addTask:hover {
+
+    background:#1d4ed8;
+
+}
+
+
+
+/* =========================
+   TASK FORM
+========================= */
+
+
+.task-form {
+
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+
+}
+
+
+
+.task-form input,
+.task-form select,
+#searchInput {
+
+
+    padding:12px;
+
+    border-radius:8px;
+
+    border:1px solid #ddd;
+
+    font-size:15px;
+
+}
+
+
+
+#taskInput {
+
+    flex:1;
+
+}
+
+
+
+/* =========================
+   SEARCH
+========================= */
+
+
+.search-section {
+
+    margin-bottom:20px;
+
+}
+
+
+#searchInput {
+
+    width:100%;
+
+}
+
+
+
+/* =========================
+   TASK LIST
+========================= */
+
+
+#taskList {
+
+    list-style:none;
+
+}
+
+
+
+#taskList li {
+
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:#f8fafc;
+
+    padding:15px;
+
+    margin-bottom:10px;
+
+    border-radius:10px;
+
+}
+
+
+
+/* DELETE BUTTON */
+
+#taskList button:last-child {
+
+
+    background:#dc2626;
+
+    color:white;
+
+}
+
+
+
+/* EDIT BUTTON */
+
+#taskList button:first-child {
+
+
+    background:#16a34a;
+
+    color:white;
+
+    margin-right:5px;
+
+}
+
+
+
+/* COMPLETED TASK */
+
+.completed h3 {
+
+
+    text-decoration:line-through;
+
+    color:#9ca3af;
+
+}
+
+
+.completed {
+
+
+    opacity:0.7;
+
+}
+
+
+
+/* =========================
+   DARK MODE
+========================= */
+
+
+body.dark {
+
+
+    background:#111827;
+
+    color:white;
+
+}
+
+
+
+body.dark .app-container {
+
+
+    background:#1f2937;
+
+}
+
+
+
+body.dark header p {
+
+
+    color:#d1d5db;
+
+}
+
+
+
+body.dark input,
+body.dark select {
+
+
+    background:#374151;
+
+    color:white;
+
+    border:1px solid #4b5563;
+
+}
+
+
+
+body.dark #taskList li {
+
+
+    background:#374151;
+
+}
+
+
+
+body.dark #themeToggle {
+
+
+    background:#facc15;
+
+    color:black;
+
+}
+
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+
+@media(max-width:700px){
+
+
+    .task-form {
+
+
+        flex-direction:column;
 
     }
 
 
 
-    let task = {
+    #taskList li {
 
 
-        id: Date.now(),
+        flex-direction:column;
 
-        title: taskText,
+        gap:10px;
 
-        priority: priority.value,
-
-        date: dueDate.value,
-
-        completed:false
-
-
-    };
-
-
-
-    tasks.push(task);
-
-
-
-    saveTasks();
-
-
-    displayTasks();
-
-
-
-    taskInput.value="";
-
-    dueDate.value="";
-
-
-}
-
-
-
-// =========================
-// DISPLAY TASKS
-// =========================
-
-
-function displayTasks(){
-
-
-    taskList.innerHTML="";
-
-
-    tasks.forEach(function(task){
-
-
-        let li = document.createElement("li");
-
-
-        if(task.completed){
-
-            li.classList.add("completed");
-
-        }
-
-
-
-        li.innerHTML = `
-
-
-        <div class="task-info">
-
-
-            <h3 onclick="completeTask(${task.id})">
-
-                ${task.title}
-
-            </h3>
-
-
-            <p>
-            Priority: ${task.priority}
-            </p>
-
-
-            <p>
-            Due Date: ${task.date || "No Date"}
-            </p>
-
-
-        </div>
-
-
-
-        <div>
-
-
-            <button onclick="editTask(${task.id})">
-
-            Edit
-
-            </button>
-
-
-
-            <button onclick="deleteTask(${task.id})">
-
-            Delete
-
-            </button>
-
-
-        </div>
-
-
-        `;
-
-
-
-        taskList.appendChild(li);
-
-
-
-    });
-
-
-}
-
-
-
-// =========================
-// DELETE TASK
-// =========================
-
-
-function deleteTask(id){
-
-
-    tasks = tasks.filter(function(task){
-
-
-        return task.id !== id;
-
-
-    });
-
-
-
-    saveTasks();
-
-
-    displayTasks();
-
-
-}
-
-
-
-
-// =========================
-// LOCAL STORAGE
-// =========================
-
-
-function saveTasks(){
-
-
-    localStorage.setItem(
-
-        "tasks",
-
-        JSON.stringify(tasks)
-
-    );
-
-
-}
-
-
-
-
-// =========================
-// LOAD SAVED TASKS
-// =========================
-
-
-function loadTasks(){
-
-
-    let savedTasks = localStorage.getItem("tasks");
-
-
-
-    if(savedTasks){
-
-
-        tasks = JSON.parse(savedTasks);
-
+        align-items:flex-start;
 
     }
-
-
-    displayTasks();
-
-
-}
-
-
-
-
-// =========================
-// BUTTON EVENT
-// =========================
-
-
-addTaskButton.addEventListener(
-
-"click",
-
-addTask
-
-);
-
-
-
-// Load data when page opens
-
-loadTasks();
-
-
-// =========================
-// DARK MODE
-// =========================
-
-
-function toggleTheme(){
-
-
-    document.body.classList.toggle("dark");
-
-
-    let currentTheme = document.body.classList.contains("dark")
-        ? "dark"
-        : "light";
-
-
-    localStorage.setItem(
-        "theme",
-        currentTheme
-    );
 
 
 }
