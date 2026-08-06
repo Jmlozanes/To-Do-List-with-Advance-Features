@@ -4,6 +4,7 @@
 
 let tasks = [];
 
+const clearCompleted = document.getElementById("clearCompleted");
 
 const taskInput = document.getElementById("taskInput");
 
@@ -125,7 +126,47 @@ function updateDashboard(){
 
 function displayTasks(taskArray = tasks) {
 
+if(taskArray.length === 0){
 
+
+    taskList.innerHTML = `
+
+    <p class="empty-message">
+
+    No tasks available 🎉
+
+    </p>
+
+    `;
+
+
+    return;
+
+
+}
+
+taskArray.sort(function(a,b){
+
+
+    let priorityOrder = {
+
+
+        High:1,
+
+        Medium:2,
+
+        Low:3
+
+
+    };
+
+
+    return priorityOrder[a.priority] -
+           priorityOrder[b.priority];
+
+
+});
+    
     taskList.innerHTML = "";
 
 
@@ -306,19 +347,32 @@ function filterTasks(type){
 function deleteTask(id){
 
 
-    tasks = tasks.filter(function(task){
+    let confirmDelete = confirm(
+        "Are you sure you want to delete this task?"
+    );
 
 
-        return task.id !== id;
+    if(confirmDelete){
 
 
-    });
+        tasks = tasks.filter(function(task){
+
+
+            return task.id !== id;
+
+
+        });
 
 
 
-    saveTasks();
+        saveTasks();
 
-    displayTasks();
+        displayTasks();
+
+        updateDashboard();
+
+
+    }
 
 
 }
@@ -498,6 +552,32 @@ function loadTheme(){
 
 
 }
+// =========================
+// CLEAR COMPLETED TASKS
+// =========================
+
+
+function clearCompletedTasks(){
+
+
+    tasks = tasks.filter(function(task){
+
+
+        return task.completed === false;
+
+
+    });
+
+
+
+    saveTasks();
+
+    displayTasks();
+
+    updateDashboard();
+
+
+}
 
 
 
@@ -505,6 +585,13 @@ function loadTheme(){
 // EVENTS
 // =========================
 
+clearCompleted.addEventListener(
+
+    "click",
+
+    clearCompletedTasks
+
+);
 
 addTaskButton.addEventListener(
 
