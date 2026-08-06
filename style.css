@@ -685,3 +685,60 @@ body.dark .stat-card h3{
 
 
 }
+
+/* =========================
+   TASK DETAILS
+========================= */
+
+
+.task-content h3 {
+
+
+    cursor:pointer;
+
+    margin-bottom:10px;
+
+
+}
+
+
+
+.task-details {
+
+
+    display:flex;
+
+    gap:10px;
+
+    align-items:center;
+
+
+}
+
+
+
+.priority {
+
+
+    padding:5px 12px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+
+}
+
+
+
+.date {
+
+
+    color:#666;
+
+    font-size:14px;
+
+
+}
