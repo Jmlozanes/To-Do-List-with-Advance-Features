@@ -389,20 +389,39 @@ body.dark #themeToggle {
 ========================= */
 
 
-.priority {
+.priority.high {
 
-    display:inline-block;
 
-    padding:5px 12px;
+    background:#fee2e2;
 
-    border-radius:20px;
+    color:#dc2626;
 
-    font-size:13px;
-
-    font-weight:bold;
 
 }
 
+
+
+.priority.medium {
+
+
+    background:#fef3c7;
+
+    color:#d97706;
+
+
+}
+
+
+
+.priority.low {
+
+
+    background:#dcfce7;
+
+    color:#16a34a;
+
+
+}
 
 
 /* HIGH */
@@ -739,6 +758,64 @@ body.dark .stat-card h3{
     color:#666;
 
     font-size:14px;
+
+
+}
+/* =========================
+   TASK BUTTONS
+========================= */
+
+
+.task-actions button {
+
+
+    padding:8px 15px;
+
+    margin-left:5px;
+
+    border-radius:8px;
+
+    color:white;
+
+
+}
+
+
+
+.edit-btn {
+
+
+    background:#16a34a;
+
+
+}
+
+
+
+.delete-btn {
+
+
+    background:#dc2626;
+
+
+}
+
+body.dark #taskList li {
+
+
+    background:#374151;
+
+    border-left-color:#facc15;
+
+
+}
+
+
+
+body.dark .date {
+
+
+    color:#d1d5db;
 
 
 }
