@@ -2,13 +2,13 @@
 // VARIABLES
 // =========================
 
+
 let tasks = [];
 
-const clearCompleted = document.getElementById("clearCompleted");
+let currentFilter = "all";
+
 
 const taskInput = document.getElementById("taskInput");
-
-const searchInput = document.getElementById("searchInput");
 
 const priority = document.getElementById("priority");
 
@@ -18,13 +18,9 @@ const addTaskButton = document.getElementById("addTask");
 
 const taskList = document.getElementById("taskList");
 
+const searchInput = document.getElementById("searchInput");
+
 const themeToggle = document.getElementById("themeToggle");
-
-const totalTasks = document.getElementById("totalTasks");
-
-const completedTasks = document.getElementById("completedTasks");
-
-const pendingTasks = document.getElementById("pendingTasks");
 
 const allFilter = document.getElementById("allFilter");
 
@@ -32,18 +28,29 @@ const activeFilter = document.getElementById("activeFilter");
 
 const completedFilter = document.getElementById("completedFilter");
 
+const clearCompleted = document.getElementById("clearCompleted");
+
+const totalTasks = document.getElementById("totalTasks");
+
+const completedTasks = document.getElementById("completedTasks");
+
+const pendingTasks = document.getElementById("pendingTasks");
+
+
 
 // =========================
 // ADD TASK
 // =========================
 
-function addTask() {
+
+function addTask(){
 
 
     let taskText = taskInput.value.trim();
 
 
-    if (taskText === "") {
+
+    if(taskText === ""){
 
         alert("Please enter a task");
 
@@ -52,7 +59,9 @@ function addTask() {
     }
 
 
+
     let task = {
+
 
         id: Date.now(),
 
@@ -62,91 +71,105 @@ function addTask() {
 
         date: dueDate.value,
 
-        completed: false
+        completed:false
+
 
     };
+
 
 
     tasks.push(task);
 
 
+
     saveTasks();
+
 
     displayTasks();
 
 
-    taskInput.value = "";
-
-    dueDate.value = "";
-
-
-}
-
-// =========================
-// UPDATE DASHBOARD
-// =========================
-
-
-function updateDashboard(){
-
-
-    let total = tasks.length;
+    updateDashboard();
 
 
 
-    let completed = tasks.filter(function(task){
+    taskInput.value="";
 
-
-        return task.completed === true;
-
-
-    }).length;
-
-
-
-    let pending = total - completed;
-
-
-
-    totalTasks.innerHTML = total;
-
-
-    completedTasks.innerHTML = completed;
-
-
-    pendingTasks.innerHTML = pending;
+    dueDate.value="";
 
 
 }
+
 
 
 // =========================
 // DISPLAY TASKS
 // =========================
 
-function displayTasks(taskArray = tasks) {
 
-if(taskArray.length === 0){
-
-
-    taskList.innerHTML = `
-
-    <p class="empty-message">
-
-    No tasks available 🎉
-
-    </p>
-
-    `;
+function displayTasks(){
 
 
-    return;
+    taskList.innerHTML="";
 
 
-}
 
-taskArray.sort(function(a,b){
+    let displayList = [...tasks];
 
+
+
+    // SEARCH
+
+    let searchValue = searchInput.value.toLowerCase();
+
+
+
+    displayList = displayList.filter(function(task){
+
+
+        return task.title
+        .toLowerCase()
+        .includes(searchValue);
+
+
+    });
+
+
+
+    // FILTER
+
+    if(currentFilter === "active"){
+
+
+        displayList = displayList.filter(function(task){
+
+
+            return task.completed === false;
+
+
+        });
+
+
+    }
+
+
+
+    if(currentFilter === "completed"){
+
+
+        displayList = displayList.filter(function(task){
+
+
+            return task.completed === true;
+
+
+        });
+
+
+    }
+
+
+
+    // SORT PRIORITY
 
     let priorityOrder = {
 
@@ -161,17 +184,45 @@ taskArray.sort(function(a,b){
     };
 
 
-    return priorityOrder[a.priority] -
-           priorityOrder[b.priority];
+
+    displayList.sort(function(a,b){
 
 
-});
-    
-    taskList.innerHTML = "";
+        return priorityOrder[a.priority] -
+
+        priorityOrder[b.priority];
+
+
+    });
 
 
 
-    taskArray.forEach(function(task) {
+
+
+    if(displayList.length === 0){
+
+
+        taskList.innerHTML = `
+
+        <p class="empty-message">
+
+        No tasks available 🎉
+
+        </p>
+
+        `;
+
+
+        return;
+
+
+    }
+
+
+
+
+    displayList.forEach(function(task){
+
 
 
         let li = document.createElement("li");
@@ -180,13 +231,17 @@ taskArray.sort(function(a,b){
 
         if(task.completed){
 
+
             li.classList.add("completed");
+
 
         }
 
 
 
+
         li.innerHTML = `
+
 
 
         <div>
@@ -194,185 +249,78 @@ taskArray.sort(function(a,b){
 
             <h3 onclick="completeTask(${task.id})">
 
-                ${task.title}
+            ${task.title}
 
             </h3>
 
 
-            <p class="priority ${task.priority.toLowerCase()}">
+
+            <div class="task-details">
+
+
+                <span class="priority ${task.priority.toLowerCase()}">
 
                 ${task.priority}
 
-            </p>
+                </span>
 
 
-            <p>
 
-                Due: ${task.date || "No Date"}
+                <span>
 
-            </p>
+                📅 ${task.date || "No Date"}
+
+                </span>
+
+
+
+            </div>
+
 
 
         </div>
+
+
 
 
 
         <div>
 
 
-            <button onclick="editTask(${task.id})">
+            <button 
+            class="edit-btn"
+            onclick="editTask(${task.id})">
 
-                Edit
+            Edit
+
+            </button>
+
+
+
+
+            <button 
+            class="delete-btn"
+            onclick="deleteTask(${task.id})">
+
+            Delete
 
             </button>
 
-
-
-            <button onclick="deleteTask(${task.id})">
-
-                Delete
-
-            </button>
 
 
         </div>
 
 
+
         `;
+
 
 
         taskList.appendChild(li);
 
 
-    });
-
-
-}
-
-
-
-// =========================
-// SEARCH TASK
-// =========================
-
-function searchTasks(){
-
-
-    let searchText = searchInput.value.toLowerCase();
-
-
-
-    let filteredTasks = tasks.filter(function(task){
-
-
-        return task.title
-        .toLowerCase()
-        .includes(searchText);
-
 
     });
-
-
-
-    displayTasks(filteredTasks);
-
-
-}
-
-// =========================
-// FILTER TASKS
-// =========================
-
-
-function filterTasks(type){
-
-
-    let filteredTasks;
-
-
-
-    if(type === "all"){
-
-
-        filteredTasks = tasks;
-
-
-    }
-
-
-
-    else if(type === "active"){
-
-
-        filteredTasks = tasks.filter(function(task){
-
-
-            return task.completed === false;
-
-
-        });
-
-
-    }
-
-
-
-    else if(type === "completed"){
-
-
-        filteredTasks = tasks.filter(function(task){
-
-
-            return task.completed === true;
-
-
-        });
-
-
-    }
-
-
-
-    displayTasks(filteredTasks);
-
-
-}
-
-
-
-// =========================
-// DELETE TASK
-// =========================
-
-function deleteTask(id){
-
-
-    let confirmDelete = confirm(
-        "Are you sure you want to delete this task?"
-    );
-
-
-    if(confirmDelete){
-
-
-        tasks = tasks.filter(function(task){
-
-
-            return task.id !== id;
-
-
-        });
-
-
-
-        saveTasks();
-
-        displayTasks();
-
-        updateDashboard();
-
-
-    }
 
 
 }
@@ -382,6 +330,7 @@ function deleteTask(id){
 // =========================
 // EDIT TASK
 // =========================
+
 
 function editTask(id){
 
@@ -412,9 +361,59 @@ function editTask(id){
         task.title = newTitle;
 
 
+
         saveTasks();
 
+
         displayTasks();
+
+
+    }
+
+
+}
+
+
+
+// =========================
+// DELETE TASK
+// =========================
+
+
+function deleteTask(id){
+
+
+
+    let confirmDelete = confirm(
+
+        "Are you sure you want to delete this task?"
+
+    );
+
+
+
+    if(confirmDelete){
+
+
+
+        tasks = tasks.filter(function(task){
+
+
+            return task.id !== id;
+
+
+        });
+
+
+
+        saveTasks();
+
+
+        displayTasks();
+
+
+        updateDashboard();
+
 
 
     }
@@ -428,10 +427,13 @@ function editTask(id){
 // COMPLETE TASK
 // =========================
 
+
 function completeTask(id){
 
 
+
     tasks = tasks.map(function(task){
+
 
 
         if(task.id === id){
@@ -443,6 +445,7 @@ function completeTask(id){
         }
 
 
+
         return task;
 
 
@@ -452,7 +455,102 @@ function completeTask(id){
 
     saveTasks();
 
+
     displayTasks();
+
+
+    updateDashboard();
+
+
+}
+
+
+
+// =========================
+// FILTER TASKS
+// =========================
+
+
+function filterTasks(type){
+
+
+    currentFilter = type;
+
+
+    displayTasks();
+
+
+}
+
+
+
+// =========================
+// CLEAR COMPLETED
+// =========================
+
+
+function clearCompletedTasks(){
+
+
+
+    tasks = tasks.filter(function(task){
+
+
+        return task.completed === false;
+
+
+    });
+
+
+
+    saveTasks();
+
+
+    displayTasks();
+
+
+    updateDashboard();
+
+
+}
+
+
+
+// =========================
+// DASHBOARD
+// =========================
+
+
+function updateDashboard(){
+
+
+
+    let total = tasks.length;
+
+
+
+    let completed = tasks.filter(function(task){
+
+
+        return task.completed === true;
+
+
+    }).length;
+
+
+
+    let pending = total - completed;
+
+
+
+    totalTasks.innerHTML = total;
+
+
+    completedTasks.innerHTML = completed;
+
+
+    pendingTasks.innerHTML = pending;
+
 
 
 }
@@ -462,6 +560,7 @@ function completeTask(id){
 // =========================
 // LOCAL STORAGE
 // =========================
+
 
 function saveTasks(){
 
@@ -482,6 +581,7 @@ function saveTasks(){
 function loadTasks(){
 
 
+
     let savedTasks = localStorage.getItem("tasks");
 
 
@@ -496,9 +596,6 @@ function loadTasks(){
 
 
 
-    displayTasks();
-
-
 }
 
 
@@ -506,6 +603,7 @@ function loadTasks(){
 // =========================
 // DARK MODE
 // =========================
+
 
 function toggleTheme(){
 
@@ -516,9 +614,9 @@ function toggleTheme(){
 
     let theme = document.body.classList.contains("dark")
 
-        ? "dark"
+    ? "dark"
 
-        : "light";
+    : "light";
 
 
 
@@ -535,7 +633,9 @@ function toggleTheme(){
 
 
 
+
 function loadTheme(){
+
 
 
     let savedTheme = localStorage.getItem("theme");
@@ -552,32 +652,6 @@ function loadTheme(){
 
 
 }
-// =========================
-// CLEAR COMPLETED TASKS
-// =========================
-
-
-function clearCompletedTasks(){
-
-
-    tasks = tasks.filter(function(task){
-
-
-        return task.completed === false;
-
-
-    });
-
-
-
-    saveTasks();
-
-    displayTasks();
-
-    updateDashboard();
-
-
-}
 
 
 
@@ -585,13 +659,6 @@ function clearCompletedTasks(){
 // EVENTS
 // =========================
 
-clearCompleted.addEventListener(
-
-    "click",
-
-    clearCompletedTasks
-
-);
 
 addTaskButton.addEventListener(
 
@@ -607,7 +674,7 @@ searchInput.addEventListener(
 
     "input",
 
-    searchTasks
+    displayTasks
 
 );
 
@@ -620,6 +687,8 @@ themeToggle.addEventListener(
     toggleTheme
 
 );
+
+
 
 allFilter.addEventListener(
 
@@ -663,6 +732,16 @@ completedFilter.addEventListener(
 
 
 
+clearCompleted.addEventListener(
+
+    "click",
+
+    clearCompletedTasks
+
+);
+
+
+
 // =========================
 // START APPLICATION
 // =========================
@@ -671,3 +750,7 @@ completedFilter.addEventListener(
 loadTasks();
 
 loadTheme();
+
+displayTasks();
+
+updateDashboard();
