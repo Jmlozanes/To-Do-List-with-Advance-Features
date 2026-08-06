@@ -819,3 +819,19 @@ body.dark .date {
 
 
 }
+/* EMPTY MESSAGE */
+
+
+.empty-message{
+
+
+    text-align:center;
+
+    padding:30px;
+
+    color:#6b7280;
+
+    font-size:18px;
+
+
+}
