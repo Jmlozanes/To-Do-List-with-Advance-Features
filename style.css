@@ -201,16 +201,39 @@ button {
 
     align-items:center;
 
-    background:#f8fafc;
 
-    padding:15px;
+    background:white;
 
-    margin-bottom:10px;
 
-    border-radius:10px;
+    padding:20px;
+
+
+    margin-bottom:15px;
+
+
+    border-radius:15px;
+
+
+    border-left:6px solid #2563eb;
+
+
+    transition:0.3s;
+
 
 }
 
+
+
+#taskList li:hover {
+
+
+    transform:translateY(-3px);
+
+
+    box-shadow:0 8px 20px rgba(0,0,0,0.1);
+
+
+}
 
 
 /* DELETE BUTTON */
