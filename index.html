@@ -17,195 +17,179 @@
 <body>
 
 
-    <div class="app-container">
+<div class="app-container">
 
 
-        <header>
+<header>
 
-            <h1>
-                TaskFlow
-            </h1>
+    <h1>
+        TaskFlow
+    </h1>
 
-            <p>
-                Manage your tasks efficiently
+    <p>
+        Manage your tasks efficiently
+    </p>
+
+
+    <button id="themeToggle">
+        🌙 Dark Mode
+    </button>
+
+
+    <div class="dashboard">
+
+
+        <div class="stat-card">
+
+            <h3>Total Tasks</h3>
+
+            <p id="totalTasks">
+                0
             </p>
 
-
-            <button id="themeToggle">
-                🌙 Dark Mode
-            </button>
+        </div>
 
 
-        </header>
 
-        <div class="dashboard">
+        <div class="stat-card">
+
+            <h3>Completed</h3>
+
+            <p id="completedTasks">
+                0
+            </p>
+
+        </div>
 
 
-    <div class="stat-card">
 
-        <h3>
-            Total Tasks
-        </h3>
+        <div class="stat-card">
 
-        <p id="totalTasks">
-            0
-        </p>
+            <h3>Pending</h3>
+
+            <p id="pendingTasks">
+                0
+            </p>
+
+        </div>
+
 
     </div>
 
 
-
-
-    <div class="stat-card">
-
-        <h3>
-            Completed
-        </h3>
-
-        <p id="completedTasks">
-            0
-        </p>
-
-    </div>
+</header>
 
 
 
-
-    <div class="stat-card">
-
-        <h3>
-            Pending
-        </h3>
-
-        <p id="pendingTasks">
-            0
-        </p>
-
-    </div>
+<section class="task-form">
 
 
-</div>
+<input 
+type="text"
+id="taskInput"
+placeholder="Enter your task..."
+>
 
 
-
-        <section class="task-form">
-
-
-            <input 
-            type="text"
-            id="taskInput"
-            placeholder="Enter your task..."
-            >
+<select id="priority">
 
 
-
-            <select id="priority">
-
-                <option value="High">
-                    High
-                </option>
-
-                <option value="Medium">
-                    Medium
-                </option>
-
-                <option value="Low">
-                    Low
-                </option>
+<option value="High">
+High
+</option>
 
 
-            </select>
+<option value="Medium">
+Medium
+</option>
+
+
+<option value="Low">
+Low
+</option>
+
+
+</select>
 
 
 
-            <input 
-            type="date"
-            id="dueDate"
-            >
+<input 
+type="date"
+id="dueDate"
+>
 
 
 
-            <button id="addTask">
-                Add Task
-            </button>
+<button id="addTask">
+
+Add Task
+
+</button>
 
 
-
-        </section>
+</section>
 
 
 
 
-        <section class="search-section">
+<section class="search-section">
 
 
-            <input 
-            type="text"
-            id="searchInput"
-            placeholder="Search tasks..."
-            >
+<input
+type="text"
+id="searchInput"
+placeholder="Search tasks..."
+>
 
 
-        </section>
+</section>
 
-        <div class="filter-buttons">
+
+
+
+<div class="filter-buttons">
 
 
 <button id="allFilter">
-
-    All
-
+All
 </button>
-
 
 
 <button id="activeFilter">
-
-    Active
-
+Active
 </button>
-
 
 
 <button id="completedFilter">
-
-    Completed
-
+Completed
 </button>
-            
+
 
 <button id="clearCompleted">
-
-    Clear Completed
-
+Clear Completed
 </button>
 
 
 </div>
 
-        
 
 
 
 
-        <section>
+<ul id="taskList">
+
+</ul>
 
 
-            <ul id="taskList">
-
-            </ul>
 
 
-        </section>
-
-
-    </div>
-
+</div>
 
 
 <script src="script.js"></script>
 
 
 </body>
+
 
 </html>
